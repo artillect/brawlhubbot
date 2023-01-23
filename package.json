@@ -1,0 +1,23 @@
+{
+  "name": "brawlhubbot",
+  "version": "1.0.0",
+  "description": "The Discord bot for the Brawl Hub server",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/artillect/brawlhubbot.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/artillect/brawlhubbot/issues"
+  },
+  "homepage": "https://github.com/artillect/brawlhubbot#readme",
+  "dependencies": {
+    "discord.js": "^14.7.1",
+    "dotenv": "^16.0.3"
+  }
+}
