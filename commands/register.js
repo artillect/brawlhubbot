@@ -29,7 +29,7 @@ module.exports = {
         filtered.length = Math.min(filtered.length, 25);
         await interaction.respond(
             filtered.map(choice => ({
-                name: choice.replace('_',' '),
+                name: choice.replaceAll('_',' '),
                 value: choice,
             })),
         );
@@ -42,7 +42,9 @@ module.exports = {
 
         const timeZone = await interaction.options.getString('timezone');
 
-        if (!timeZones.includes(timeZone)) return await interaction.reply({content: 'Error: Timezone not found.', ephemeral: true});
+        if (!timeZone.includes('/')) return await interaction.reply({content: 'Please enter your time zone in the format `Continent/Major City`.', ephemeral: true})
+
+        if (!timeZones.includes(timeZone)) return await interaction.reply({content: 'Please select a time zone from the list.', ephemeral: true});
 
         if (await Users.findOne({ where: { user_id: interaction.user.id}})) {
             const user = await Users.update({
@@ -79,7 +81,7 @@ module.exports = {
             .setThumbnail(interaction.user.avatarURL())
             .addFields(
                 { name: `${interaction.user.username}`, value: interaction.options.getString('username')},
-                { name: `${timeZone.replace('_',' ')}`, value: `GMT${offsetString}`}
+                { name: `${timeZone.replaceAll('_',' ')}`, value: `GMT${offsetString}`}
             )
 
 		await interaction.followUp({ embeds: [embed], ephemeral: true });
