@@ -18,6 +18,9 @@
   "homepage": "https://github.com/artillect/brawlhubbot#readme",
   "dependencies": {
     "discord.js": "^14.7.1",
-    "dotenv": "^16.0.3"
+    "dotenv": "^16.0.3",
+    "luxon": "^3.2.1",
+    "sequelize": "^6.28.0",
+    "sqlite3": "^5.1.4"
   }
 }
