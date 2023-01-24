@@ -19,7 +19,7 @@ module.exports = {
                 .setRequired(true)
                 .setAutocomplete(true)),
     async autocomplete(interaction) {
-        // Get list of timezones in Continent/City format
+        // Get list of timezones in Continent/City format       
         const timeZones = await Intl.supportedValuesOf('timeZone');
         // Get value user has typed in
         const focusedValue = await interaction.options.getFocused();
@@ -37,7 +37,12 @@ module.exports = {
 	async execute(interaction) {
 		// interaction.user is the object representing the User who ran the command
 		// interaction.member is the GuildMember object, which represents the user in the specific guild
+        // Get list of timezones in Continent/City format       
+        const timeZones = await Intl.supportedValuesOf('timeZone');
+
         const timeZone = await interaction.options.getString('timezone');
+
+        if (!timeZones.includes(timeZone)) return await interaction.reply({content: 'Error: Timezone not found.', ephemeral: true});
 
         if (await Users.findOne({ where: { user_id: interaction.user.id}})) {
             const user = await Users.update({
@@ -66,8 +71,9 @@ module.exports = {
 
         }
 
-        const offsetNum = DateTime.local().setZone(timeZone).o/60;
-        const offsetString = offsetNum >= 0 ? `+${offsetNum}` : `${offsetNum}`
+        // Get offset 
+        const offsetNum = DateTime.local().setZone(timeZone).o;
+        const offsetString = offsetNum >= 0 ? `+${offsetNum/60}:${String(offsetNum % 60).padStart(2,'0')}` : `${offsetNum/60}:${String(offsetNum % 60).padStart(2,'0')}`
 
         const embed = new EmbedBuilder()
             .setThumbnail(interaction.user.avatarURL())
