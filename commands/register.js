@@ -24,7 +24,7 @@ module.exports = {
         // Get value user has typed in
         const focusedValue = await interaction.options.getFocused();
         // Get list of possible time zone names
-        let filtered = await timeZones.filter(timeZone => timeZone.startsWith(focusedValue));
+        let filtered = await timeZones.filter(timeZone => timeZone.toLowerCase().startsWith(focusedValue.toLowerCase()));
         // Cap length to 25 items
         filtered.length = Math.min(filtered.length, 25);
         await interaction.respond(
